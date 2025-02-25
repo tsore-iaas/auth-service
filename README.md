@@ -92,7 +92,7 @@ Cela démarrera le service sur le port configuré (par défaut 9010).
 ##### Réponse
 <i>Code 201 : Utilisateur créé avec succès. Retourne un token JWT.</i>
 
-````JSON
+```JSON
 {
 "email": "nouvelutilisateur@example.com",
 "token": "jwt_token_generé"
