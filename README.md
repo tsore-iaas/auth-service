@@ -53,56 +53,62 @@ Cela démarrera le service sur le port configuré (par défaut 9010).
 <i> Permet à un utilisateur de se connecter en utilisant son adresse e-mail et son mot de passe. </i>
 
 ##### Requête
+```JSON
 {
 "email": "utilisateur@example.com",
 "password": "motDePasseSécurisé"
-}
+}```
 
 ##### Réponse
 <i> Code 200 : Succès de l'authentification. Retourne un token JWT. </i>
 
+```JSON
 {
 "email": "utilisateur@example.com",
 "token": "jwt_token_generé"
 }
-
+```
 <i>Code 401 : Identifiants invalides ou utilisateur non trouvé.</i>
 
+```JSON
 {
 "message": "Utilisateur non trouvé ou mot de passe incorrect"
-}
+}```
 
 #### 2. POST /auth/signup
 <i>Permet à un nouvel utilisateur de s'enregistrer.</i>
 
 ##### Requête
 
+```JSON
 {
 "email": "nouvelutilisateur@example.com",
 "password": "motDePasseSécurisé"
-}
+}```
 
-#####Réponse
+##### Réponse
 <i>Code 201 : Utilisateur créé avec succès. Retourne un token JWT.</i>
 
+````JSON
 {
 "email": "nouvelutilisateur@example.com",
 "token": "jwt_token_generé"
-}
+}```
 
 <i>Code 409 : L'utilisateur avec cet email existe déjà.</i>
 
+```JSON
 {
 "message": "Utilisateur avec cet email existe déjà"
-}
+}```
 
 ### Sécurisation des mots de passe
 Le service utilise BCrypt pour sécuriser les mots de passe des utilisateurs. Les mots de passe ne sont jamais stockés en clair dans la base de données, mais sont hachés avant d'être enregistrés.
 
-######Exemple de création de mot de passe sécurisé
+###### Exemple de création de mot de passe sécurisé
 Lorsque l'utilisateur s'inscrit, son mot de passe est automatiquement haché avec BCrypt avant d'être enregistré dans la base de données.
 
-######Exemple de génération de token JWT
+###### Exemple de génération de token JWT
 Lorsque l'utilisateur se connecte, un token JWT est généré pour lui. Ce token est utilisé pour sécuriser les communications avec le service.
 
 ``String token = jwtUtil.generateToken(user.getEmail());``
