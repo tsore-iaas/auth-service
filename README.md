@@ -57,7 +57,8 @@ Cela démarrera le service sur le port configuré (par défaut 9010).
 {
 "email": "utilisateur@example.com",
 "password": "motDePasseSécurisé"
-}```
+}
+```
 
 ##### Réponse
 <i> Code 200 : Succès de l'authentification. Retourne un token JWT. </i>
@@ -73,7 +74,8 @@ Cela démarrera le service sur le port configuré (par défaut 9010).
 ```JSON
 {
 "message": "Utilisateur non trouvé ou mot de passe incorrect"
-}```
+}
+```
 
 #### 2. POST /auth/signup
 <i>Permet à un nouvel utilisateur de s'enregistrer.</i>
@@ -84,7 +86,8 @@ Cela démarrera le service sur le port configuré (par défaut 9010).
 {
 "email": "nouvelutilisateur@example.com",
 "password": "motDePasseSécurisé"
-}```
+}
+```
 
 ##### Réponse
 <i>Code 201 : Utilisateur créé avec succès. Retourne un token JWT.</i>
@@ -93,14 +96,16 @@ Cela démarrera le service sur le port configuré (par défaut 9010).
 {
 "email": "nouvelutilisateur@example.com",
 "token": "jwt_token_generé"
-}```
+}
+```
 
 <i>Code 409 : L'utilisateur avec cet email existe déjà.</i>
 
 ```JSON
 {
 "message": "Utilisateur avec cet email existe déjà"
-}```
+}
+```
 
 ### Sécurisation des mots de passe
 Le service utilise BCrypt pour sécuriser les mots de passe des utilisateurs. Les mots de passe ne sont jamais stockés en clair dans la base de données, mais sont hachés avant d'être enregistrés.
