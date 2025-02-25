@@ -133,5 +133,8 @@ Si vous souhaitez contribuer à ce projet, veuillez suivre les étapes ci-dessou
 - Testez vos modifications.
 - Soumettez une Pull Request avec une description détaillée des modifications apportées.
 
-### License
-Ce projet est sous la licence MIT License.
+---
+
+**Auteur**: BISSOG SAMUEL
+
+**Licence**: MIT
