@@ -118,15 +118,15 @@ Lorsque l'utilisateur se connecte, un token JWT est généré pour lui. Ce token
 
 ``String token = jwtUtil.generateToken(user.getEmail());``
 
-####Sécurisation via JWT
+#### Sécurisation via JWT
 Le service utilise JSON Web Tokens (JWT) pour garantir la sécurité des communications. Le token contient l'adresse e-mail de l'utilisateur et est signé avec une clé secrète. Ce token est ensuite renvoyé dans la réponse et doit être inclus dans l'en-tête Authorization des requêtes suivantes pour accéder aux ressources sécurisées.
 
 ``Authorization: Bearer <token>``
 
-####Gestion des erreurs
+#### Gestion des erreurs
 Les erreurs sont renvoyées sous forme de JSON, avec un code HTTP approprié.
 
-######Exemples de réponses d'erreur :
+###### Exemples de réponses d'erreur :
 
 - 400 Bad Request : Erreur de validation (ex. format de mot de passe incorrect).
 - 401 Unauthorized : Erreurs d'authentification (email ou mot de passe incorrect).
