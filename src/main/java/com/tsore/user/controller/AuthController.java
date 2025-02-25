@@ -37,4 +37,13 @@ public class AuthController {
     public ResponseEntity<LoginResponse>   firebaseLogin(@RequestBody FirebaseAuthRequest request) throws Exception {
         return ResponseEntity.ok(firebaseAuthService.authenticateWithFirebase(request));
     }
+
+    @GetMapping("/get_user_id")
+    public ResponseEntity<Long> getUserIdFromToken(@RequestHeader("Authorization") String authorizationHeader) {
+        String token = authorizationHeader.replace("Bearer ", "");
+
+        Long userId = authService.getUserIdFromToken(token);
+
+        return ResponseEntity.ok(userId);
+    }
 }

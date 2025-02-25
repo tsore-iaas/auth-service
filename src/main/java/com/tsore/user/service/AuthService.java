@@ -51,4 +51,13 @@ public class AuthService {
 
         return new LoginResponse(savedUser.getEmail(), token);
     }
+
+    public Long getUserIdFromToken(String token) {
+        String email = jwtUtil.extractEmail(token);
+
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("Utilisateur non trouvé"));
+
+        return user.getId();
+    }
 }
