@@ -1,6 +1,6 @@
 package com.tsore.user.service;
 
-
+import com.tsore.user.config.RabbitMQConfig;
 import com.tsore.user.dto.LoginRequest;
 import com.tsore.user.dto.LoginResponse;
 import com.tsore.user.entity.AuthProvider;
@@ -8,6 +8,10 @@ import com.tsore.user.entity.User;
 import com.tsore.user.repository.UserRepository;
 import com.tsore.user.security.JwtUtil;
 import lombok.RequiredArgsConstructor;
+
+import java.util.HashMap;
+
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -19,6 +23,8 @@ public class AuthService {
     private UserRepository userRepository;
     @Autowired
     private JwtUtil jwtUtil;
+    @Autowired
+    private RabbitTemplate rabbitTemplate;
 
     private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
@@ -49,6 +55,12 @@ public class AuthService {
         String token = jwtUtil.generateToken(newUser.getEmail());
         User savedUser = userRepository.save(newUser);
 
+        // On envoie un message à RabbitMQ pour créer l'utilisateur dans les autres
+        // services
+        HashMap<String, String> d = new HashMap<>();
+        d.put("email", savedUser.getEmail());
+        d.put("id", String.valueOf(savedUser.getId()));
+        this.rabbitTemplate.convertAndSend(RabbitMQConfig.EXCHANGE_NAME, "user.create.key", savedUser);
         return new LoginResponse(savedUser.getEmail(), token);
     }
 
