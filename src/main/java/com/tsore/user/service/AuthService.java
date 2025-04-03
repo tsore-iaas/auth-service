@@ -3,6 +3,7 @@ package com.tsore.user.service;
 import com.tsore.user.config.RabbitMQConfig;
 import com.tsore.user.dto.LoginRequest;
 import com.tsore.user.dto.LoginResponse;
+import com.tsore.user.dto.RegisterRequest;
 import com.tsore.user.entity.AuthProvider;
 import com.tsore.user.entity.User;
 import com.tsore.user.repository.UserRepository;
@@ -41,7 +42,7 @@ public class AuthService {
         return new LoginResponse(user.getEmail(), token);
     }
 
-    public LoginResponse signup(LoginRequest request) {
+    public LoginResponse signup(RegisterRequest request) {
         if (!userRepository.findByEmail(request.getEmail()).isEmpty()) {
             throw new RuntimeException("Utilisateur avec cet email existe déjà");
         }
@@ -52,6 +53,7 @@ public class AuthService {
         newUser.setEmail(request.getEmail());
         newUser.setPassword(encodedPassword);
         newUser.setProvider(AuthProvider.LOCAL);
+        newUser.setName(request.getName());
         String token = jwtUtil.generateToken(newUser.getEmail());
         User savedUser = userRepository.save(newUser);
 
