@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/auth")
-@CrossOrigin(origins = {})
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class AuthController {
     @Autowired
     private AuthService authService;
