@@ -39,6 +39,6 @@ public class FirebaseAuthService {
         });
 
         String jwt = jwtUtil.generateToken(user.getEmail());
-        return new LoginResponse(user.getEmail(), jwt);
+        return new LoginResponse(user, jwt);
     }
 }

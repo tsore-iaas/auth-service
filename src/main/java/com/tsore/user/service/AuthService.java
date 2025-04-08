@@ -39,7 +39,7 @@ public class AuthService {
         }
 
         String token = jwtUtil.generateToken(user.getEmail());
-        return new LoginResponse(user.getEmail(), token);
+        return new LoginResponse(user, token);
     }
 
     public LoginResponse signup(RegisterRequest request) {
@@ -63,7 +63,7 @@ public class AuthService {
         d.put("email", savedUser.getEmail());
         d.put("id", String.valueOf(savedUser.getId()));
         this.rabbitTemplate.convertAndSend(RabbitMQConfig.EXCHANGE_NAME, "user.create.key", savedUser);
-        return new LoginResponse(savedUser.getEmail(), token);
+        return new LoginResponse(savedUser, token);
     }
 
     public Long getUserIdFromToken(String token) {

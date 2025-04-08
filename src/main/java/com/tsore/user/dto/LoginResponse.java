@@ -1,6 +1,7 @@
 package com.tsore.user.dto;
 
-import lombok.AllArgsConstructor;
+import com.tsore.user.entity.User;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -9,20 +10,20 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class LoginResponse {
-    private String email;
+    private User user;
     private String token;
 
-    public LoginResponse(String email, String token) {
-        this.email = email;
+    public LoginResponse(User user, String token) {
+        this.user = user;
         this.token = token;
     }
 
-    public String getEmail() {
-        return email;
+    public User getUser() {
+        return user;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public String getToken() {
