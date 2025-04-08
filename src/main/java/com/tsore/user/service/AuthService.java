@@ -38,8 +38,15 @@ public class AuthService {
             throw new RuntimeException("Mot de passe incorrect");
         }
 
+        User userWithoutPassword = new User();
+        userWithoutPassword.setId(user.getId());
+        userWithoutPassword.setEmail(user.getEmail());
+        userWithoutPassword.setName(user.getName());
+        userWithoutPassword.setProvider(user.getProvider());
+        userWithoutPassword.setRoleType(user.getRoleType());
+        
         String token = jwtUtil.generateToken(user.getEmail());
-        return new LoginResponse(user, token);
+        return new LoginResponse(userWithoutPassword, token);
     }
 
     public LoginResponse signup(RegisterRequest request) {
@@ -54,6 +61,7 @@ public class AuthService {
         newUser.setPassword(encodedPassword);
         newUser.setProvider(AuthProvider.LOCAL);
         newUser.setName(request.getName());
+        newUser.setRoleType(request.getRoleType());
         String token = jwtUtil.generateToken(newUser.getEmail());
         User savedUser = userRepository.save(newUser);
 
